@@ -17,6 +17,8 @@ const stateSlice = createSlice({
             state.newarr = action.payload;
 
         }
+
+
     }
 });
 

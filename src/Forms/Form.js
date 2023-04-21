@@ -3,9 +3,13 @@ import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Frm from './Frm.css';
 import { stateContext } from '../Context/Statecontext';
+import { useDispatch, useSelector } from 'react-redux';
+import { newarr } from '../Context/stateSlice';
 
 const Form= () => {
-    const {state, dispatch} = useContext(stateContext);
+    // const {state, dispatch} = useContext(stateContext);
+    const state = useSelector(({sample})=>sample);
+    const dispatch = useDispatch();
     console.log("state", state,"dispatch", dispatch);
 
     const [params] = useSearchParams();
@@ -19,7 +23,8 @@ const Form= () => {
 
     useEffect(()=>{
         if(params.get("name")!= null){
-            const ele = JSON.parse(localStorage.getItem("newarray"));
+            // const ele = JSON.parse(localStorage.getItem("newarray"));
+            const ele = state.newarr;
             console.log(ele);
             const obj = ele.find((element)=>element.name === params.get("name"));
             // console.log(obj);
@@ -56,8 +61,10 @@ const Form= () => {
 
 
         if(params.get("name") == null){
+            const data = {name:username, description:userdes, iscomplete:iscomplete};
 
-            dispatch({type: "UPDATE_FORM", payload:[...state.newarr,{name:username, description:userdes, iscomplete:iscomplete}]})
+            // dispatch({type: "UPDATE_FORM", payload:[...state.newarr,{name:username, description:userdes, iscomplete:iscomplete}]})
+            dispatch(newarr([...state.newarr,data]));
         }else{
             const newvalue = state.newarr.map(el=>{
                 if(el.name ===  params.get("name")){
@@ -68,7 +75,8 @@ const Form= () => {
                 });
           
              console.log(newvalue);
-             dispatch({type:"UPDATE_FORM",payload: newvalue})
+            //  dispatch({type:"UPDATE_FORM",payload: newvalue})
+            dispatch(newarr(newvalue));
 
             
         }

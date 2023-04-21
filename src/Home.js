@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { newarr } from './Context/stateSlice';
+import { login } from './Context/stateSlice';
 
 const Home = () => {
 
@@ -16,20 +17,21 @@ const Home = () => {
   //  const {state, dispatch} = useContext(stateContext);
   const state = useSelector(({sample})=>sample);
   const dispatch = useDispatch();
-   console.log("state", state,"dispatch", dispatch);
+   console.log("state", state.newarr);
 
-   const [datas, setdatas]= useState(state.newarr)
+  //  const [datas, setdatas]= useState(state.newarr)
    
   //  console.log(datas);
   //  localStorage.removeItem("newarray");
 
   
   const removeElement = (id) => {
-     setdatas(()=> datas.filter((val, i) => i!== id));
-     console.log(datas);
+    //  setdatas(()=> datas.filter((val, i) => i!== id));
+    //  console.log(datas);
+    dispatch(newarr(state.newarr.filter((val,i)=>i!=id)));
       
   };
-  localStorage.setItem("newarray",JSON.stringify(datas));
+  // localStorage.setItem("newarray",JSON.stringify(datas));
 
 
   const editElement = (info)=>{
@@ -44,7 +46,8 @@ const Home = () => {
     }
 
     const logout=()=>{
-      dispatch({type:"LOGOUT", payload: localStorage.clear()});
+      // dispatch({type:"LOGOUT", payload: localStorage.clear()});
+      dispatch(login(localStorage.clear()));
     }
 
   return (
@@ -63,7 +66,7 @@ const Home = () => {
     
         </thead>
         <tbody>
-          {datas?.map((items,i)=>(<tr key={i}>
+          {state.newarr?.map((items,i)=>(<tr key={i}>
             <td>{i+1}</td>
             <td>{items.name}</td>
             <td>{items.description}</td>
