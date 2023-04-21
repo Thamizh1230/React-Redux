@@ -1,0 +1,32 @@
+[
+    {
+        
+        "usrname" : "react",
+        "userpassword" : "reactjs"
+
+    },
+
+    {
+        
+        "usrname" : "javascript",
+        "userpassword" : "javascript"
+    },
+    {
+       
+        "usrname" : "html5",
+        "userpassword" : "html"
+
+    },
+    {
+        
+        "usrname" : "css3",
+        "userpassword" : "css"
+
+    },
+    {
+       
+        "usrname" : "bootstrap5",
+        "userpassword" : "bootstrap"
+
+    }
+]
